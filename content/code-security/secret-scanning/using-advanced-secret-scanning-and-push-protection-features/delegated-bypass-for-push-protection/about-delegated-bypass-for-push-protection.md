@@ -1,9 +1,11 @@
 ---
 title: About delegated bypass for push protection
-intro: 'You can control which teams or roles have the ability to bypass push protection in your organization or repository.'
+intro: You can control which teams or roles have the ability to bypass push protection in your organization or repository.
 product: '{% data reusables.gated-features.delegated-bypass %}'
 versions:
-  feature: push-protection-delegated-bypass
+  fpt: '*'
+  ghec: '*'
+  ghes: '*'
 type: overview
 topics:
   - Secret scanning
@@ -17,7 +19,7 @@ shortTitle: About delegated bypass
 
 {% data reusables.secret-scanning.push-protection-delegate-bypass-beta-note %}
 
-By default, when push protection is enabled for a repository, anyone with write access can still push a secret to the repository, provided that they specify a reason for bypassing push protection.
+When push protection is enabled for a repository, users with write access can bypass push protection and push a secret if they provide a reason and the bypass is approved.
 
 With delegated bypass for push protection, you can:
 

@@ -1,7 +1,7 @@
 ---
 title: Configuring global security settings for your organization
 shortTitle: Configure global settings
-intro: 'Customize {% data variables.product.prodname_GH_advanced_security %} features to strengthen the security of your organization.'
+intro: 'Customize {% data variables.product.prodname_AS %} features to strengthen the security of your organization.'
 permissions: '{% data reusables.permissions.security-org-enable %}'
 versions:
   feature: security-configurations
@@ -14,7 +14,7 @@ topics:
 
 ## About {% data variables.product.prodname_global_settings %}
 
-Alongside {% data variables.product.prodname_security_configurations %}, which determine repository-level security settings, you should also configure {% data variables.product.prodname_global_settings %} for your organization. {% data variables.product.prodname_global_settings_caps %} apply to your entire organization, and can customize {% data variables.product.prodname_GH_advanced_security %} features based on your needs. {% ifversion ghes < 3.16 %}You can also create a team of security managers to monitor and maintain your organization's security.{% endif %}
+Alongside {% data variables.product.prodname_security_configurations %}, which determine repository-level security settings, you should also configure {% data variables.product.prodname_global_settings %} for your organization. {% data variables.product.prodname_global_settings_caps %} apply to your entire organization, and can customize {% data variables.product.prodname_AS %} features based on your needs. {% ifversion ghes < 3.16 %}You can also create a team of security managers to monitor and maintain your organization's security.{% endif %}
 
 ## Accessing the {% data variables.product.prodname_global_settings %} page for your organization
 
@@ -29,8 +29,9 @@ Alongside {% data variables.product.prodname_security_configurations %}, which d
 You can customize several {% data variables.product.prodname_global_settings %} for {% data variables.product.prodname_dependabot %}:
 
 * [Creating and managing {% data variables.dependabot.auto_triage_rules %}](#creating-and-managing-dependabot-auto-triage-rules)
-* [Grouping {% data variables.product.prodname_dependabot %} security updates](#grouping-dependabot-security-updates){% ifversion fpt or ghec %}
-* [Enabling dependency updates on {% data variables.product.prodname_actions %} runners](#enabling-dependency-updates-on-github-actions-runners){% endif %}{% ifversion fpt %}
+* [Grouping {% data variables.product.prodname_dependabot %} security updates](#grouping-dependabot-security-updates){% ifversion dependabot-on-actions-opt-in %}
+* [Enabling dependency updates on {% data variables.product.prodname_actions %} runners](#enabling-dependency-updates-on-github-actions-runners){% endif %}{% ifversion dependabot-arc-support %}
+* [Configuring the runner type for {% data variables.product.prodname_dependabot %}](#configuring-the-runner-type-for-dependabot){% endif %}{% ifversion fpt %}
 * [Granting {% data variables.product.prodname_dependabot %} access to private repositories](#granting-dependabot-access-to-private-repositories){% else %}
 * [Granting {% data variables.product.prodname_dependabot %} access to private and internal repositories](#granting-dependabot-access-to-private-and-internal-repositories){% endif %}
 
@@ -56,7 +57,35 @@ Otherwise, to allow {% data variables.product.prodname_dependabot %} to use {% d
 
 For more information, see [AUTOTITLE](/code-security/dependabot/working-with-dependabot/about-dependabot-on-github-actions-runners).
 
-{% data reusables.dependabot.dependabot-on-actions-self-hosted-link %}
+{% endif %}
+
+{% ifversion dependabot-arc-support %}
+
+### Configuring the runner type for {% data variables.product.prodname_dependabot %}
+
+You can configure which type of runner {% data variables.product.prodname_dependabot %} uses to scan for version and security updates. By default, {% data variables.product.prodname_dependabot %} uses standard **{% data variables.product.company_short %}-hosted runners**. You can configure {% data variables.product.prodname_dependabot %} to use **self-hosted runners** with custom labels, which allows you to integrate with existing runner infrastructure such as {% data variables.product.prodname_actions_runner_controller %} (ARC).
+
+> [!NOTE]
+> * For security reasons, {% data variables.product.prodname_dependabot %} uses {% data variables.product.company_short %}-hosted runners for public repositories, even when you configure labeled runners. 
+> * Labeled runners **do not work** for public repositories.
+
+To configure the runner type:
+
+1. Under "{% data variables.product.prodname_dependabot %}", next to "Runner type", select {% octicon "pencil" aria-label="Edit runner type" %}.
+1. In the "Edit runner type for {% data variables.product.prodname_dependabot %}" dialog, select the runner type you want {% data variables.product.prodname_dependabot %} to use:
+   * **Standard {% data variables.product.company_short %} runner**.
+   * **Labeled runner**: If you select this option, {% data variables.product.prodname_dependabot %} will use self-hosted runners that match the label you specify.
+1. If you selected **Labeled runner**:
+   * In "Runner label", enter the label assigned to your self-hosted runners. {% data variables.product.prodname_dependabot %} will use runners with this label. By default, the `dependabot` label is used, but you can specify a custom label to match your existing runner infrastructure.
+   * Optionally, in "Runner group name", enter the name of a runner group if you want to target a specific group of runners.
+1. Click **Save runner selection**.
+
+
+{% endif %}
+
+{% ifversion dependabot-on-actions-self-hosted %}
+
+For more information about configuring self-hosted runners for {% data variables.product.prodname_dependabot %}, see [AUTOTITLE](/code-security/dependabot/maintain-dependencies/managing-dependabot-on-self-hosted-runners).
 
 {% endif %}
 
@@ -68,12 +97,20 @@ To update private dependencies of repositories in your organization, {% data var
 
 {% data reusables.code-scanning.about-code-scanning %}
 
+{% ifversion ghes > 3.16 %}
+<!-- There is only one bullet point in this section, so we don't display a list for GHES 3.17+. -->
+
+You can recommend that repositories in your organization use the "Extended" query suite instead of the "Default" query suite for broader {% data variables.product.prodname_code_scanning %} coverage across your organization. See [Recommending the extended query suite for default setup](#recommending-the-extended-query-suite-for-default-setup).
+
+{% else %}
+
 You can customize several {% data variables.product.prodname_global_settings %} for {% data variables.product.prodname_code_scanning %}:
 
-* [Recommending the extended query suite for default setup](#recommending-the-extended-query-suite-for-default-setup){% ifversion code-scanning-autofix %}
-* [Enabling {% data variables.product.prodname_copilot_autofix_short %} for {% data variables.product.prodname_codeql %}](#enabling-copilot-autofix-for-codeql)
-* [Enabling {% data variables.product.prodname_copilot_autofix_short %} for third-party {% data variables.product.prodname_code_scanning %} tools](#enabling-copilot-autofix-for-third-party-code-scanning-tools) {% endif %}{% ifversion ghes < 3.17 %}
-* [Setting a failure threshold for {% data variables.product.prodname_code_scanning %} checks in pull requests](#setting-a-failure-threshold-for-code-scanning-checks-in-pull-requests){% endif %}
+{% ifversion code-scanning-autofix %}* [Enabling {% data variables.copilot.copilot_autofix_short %} for {% data variables.product.prodname_codeql %}](#enabling-copilot-autofix-for-codeql){% endif %}
+* [Recommending the extended query suite for default setup](#recommending-the-extended-query-suite-for-default-setup){% ifversion ghes < 3.17 %}
+* [Setting a failure threshold for {% data variables.product.prodname_code_scanning %} checks in pull requests](#setting-a-failure-threshold-for-code-scanning-checks-in-pull-requests).{% endif %}
+
+{% endif %}
 
 ### Recommending the extended query suite for default setup
 
@@ -81,16 +118,9 @@ You can customize several {% data variables.product.prodname_global_settings %} 
 
 {% ifversion code-scanning-autofix %}
 
-### Enabling {% data variables.product.prodname_copilot_autofix_short %} for {% data variables.product.prodname_codeql %}
+### Enabling {% data variables.copilot.copilot_autofix_short %} for {% data variables.product.prodname_codeql %}
 
-You can select **{% data variables.product.prodname_copilot_autofix_short %}** to enable {% data variables.product.prodname_copilot_autofix_short %} for all the repositories in your organization that use {% data variables.product.prodname_codeql %} default setup or {% data variables.product.prodname_codeql %} advanced setup. {% data variables.product.prodname_copilot_autofix_short %} is an expansion of {% data variables.product.prodname_code_scanning %} that suggests fixes for {% data variables.product.prodname_code_scanning %} alerts. For more information, see [AUTOTITLE](/code-security/code-scanning/managing-code-scanning-alerts/responsible-use-autofix-code-scanning).
-
-### Enabling {% data variables.product.prodname_copilot_autofix_short %} for third-party {% data variables.product.prodname_code_scanning %} tools
-
->[!NOTE]
-> Third-party {% data variables.product.prodname_code_scanning %} tool support is in {% data variables.release-phases.public_preview %}, and subject to change. Currently, the third-party tool ESLint is supported. For more information, see [AUTOTITLE](/code-security/code-scanning/managing-code-scanning-alerts/responsible-use-autofix-code-scanning).
-
-You can select **{% data variables.product.prodname_copilot_autofix_short %} for third-party tools** to enable {% data variables.product.prodname_copilot_autofix_short %} for all the repositories in your organization that use third-party tools. {% data variables.product.prodname_copilot_autofix_short %} is an expansion of {% data variables.product.prodname_code_scanning %} that suggests fixes for {% data variables.product.prodname_code_scanning %} alerts.
+You can select **{% data variables.copilot.copilot_autofix_short %}** to enable {% data variables.copilot.copilot_autofix_short %} for all the repositories in your organization that use {% data variables.product.prodname_codeql %} default setup or {% data variables.product.prodname_codeql %} advanced setup. {% data variables.copilot.copilot_autofix_short %} is an expansion of {% data variables.product.prodname_code_scanning %} that suggests fixes for {% data variables.product.prodname_code_scanning %} alerts. For more information, see [AUTOTITLE](/code-security/code-scanning/managing-code-scanning-alerts/responsible-use-autofix-code-scanning).
 
 {% endif %}
 
@@ -109,15 +139,30 @@ You can choose the severity levels at which {% data variables.product.prodname_c
 You can customize several {% data variables.product.prodname_global_settings %} for {% data variables.product.prodname_secret_scanning %}:
 
 * [Adding a resource link for blocked commits](#adding-a-resource-link-for-blocked-commits)
-* [Defining custom patterns](#defining-custom-patterns)
+* [Defining custom patterns](#defining-custom-patterns){% ifversion push-protected-pattern-configuration %}
+* [Specifying patterns to include in push protection](#specifying-patterns-to-include-in-push-protection){% endif %}
 
 ### Adding a resource link for blocked commits
 
-To provide context for developers when {% data variables.product.prodname_secret_scanning %} blocks a commit, you can display a link with more information on why the commit was blocked. To include a link, select **Add a resource link in the CLI and the web UI when a commit is blocked**. In the text box, type the link to the desired resource, then click **Save**.
+To provide context for developers when {% data variables.product.prodname_secret_scanning %} blocks a commit, you can display a link with more information on why the commit was blocked. To include a link, select **Add a resource link in the CLI and the web UI when a commit is blocked**. In the text box, type the link to the desired resource, then click {% ifversion fpt or ghec or ghes > 3.15 %}**Save Link**{% else %}**Save**{% endif %}.
 
 ### Defining custom patterns
 
 You can define custom patterns for {% data variables.product.prodname_secret_scanning %} with regular expressions. Custom patterns can identify secrets that are not detected by the default patterns supported by {% data variables.product.prodname_secret_scanning %}. To create a custom pattern, click **New pattern**, then enter the details for your pattern and click **Save and dry run**. For more information on custom patterns, see [AUTOTITLE](/code-security/secret-scanning/using-advanced-secret-scanning-and-push-protection-features/custom-patterns/defining-custom-patterns-for-secret-scanning).
+
+{% ifversion push-protected-pattern-configuration %}
+
+### Specifying patterns to include in push protection
+
+{% data reusables.secret-scanning.push-protected-pattern-configuration-org-enterprise-preview %}
+
+You can customize which secret patterns are included in push protection, giving security teams greater control over what types of secrets are blocked in the repositories in your organization.
+
+1. Under "Additional settings", in the "{% data variables.product.prodname_secret_scanning_caps %}" section and to the right of "Pattern configurations", click **{% octicon "gear" aria-label="The Gear icon" %}**.
+1. In the page that gets displayed, make the desired changes in the "Organization setting" column.
+{% data reusables.secret-scanning.pattern-enablement-org-enterprise %}
+
+{% endif %}
 
 ## Creating security managers for your organization
 

@@ -5,17 +5,19 @@ import Head from 'next/head'
 import { ThemeProvider } from '@primer/react'
 import { useRouter } from 'next/router'
 
-import { initializeEvents } from 'src/events/components/events'
+import { initializeEvents } from '@/events/components/events'
 import {
   initializeExperiments,
   initializeForwardFeatureUrlParam,
-} from 'src/events/components/experiments/experiment'
+} from '@/events/components/experiments/experiment'
 import {
   LanguagesContext,
   LanguagesContextT,
   LanguageItem,
-} from 'src/languages/components/LanguagesContext'
-import { useTheme } from 'src/color-schemes/components/useTheme'
+} from '@/languages/components/LanguagesContext'
+import { useTheme } from '@/color-schemes/components/useTheme'
+import { SharedUIContextProvider } from '@/frame/components/context/SharedUIContext'
+import { CTAPopoverProvider } from '@/frame/components/context/CTAContext'
 
 type MyAppProps = AppProps & {
   isDotComAuthenticated: boolean
@@ -24,11 +26,13 @@ type MyAppProps = AppProps & {
 }
 
 const stagingNames = new Set([
+  'balsam',
   'boxwood',
   'cedar',
   'cypress',
   'fir',
   'hemlock',
+  'hinoki',
   'holly',
   'juniper',
   'laurel',
@@ -36,6 +40,7 @@ const stagingNames = new Set([
   'redwood',
   'sequoia',
   'spruce',
+  'yew',
 ])
 
 function getFaviconHref(stagingName?: string) {
@@ -138,7 +143,11 @@ const MyApp = ({ Component, pageProps, languagesContext, stagingName }: MyAppPro
         preventSSRMismatch
       >
         <LanguagesContext.Provider value={languagesContext}>
-          <Component {...pageProps} />
+          <SharedUIContextProvider>
+            <CTAPopoverProvider>
+              <Component {...pageProps} />
+            </CTAPopoverProvider>
+          </SharedUIContextProvider>
         </LanguagesContext.Provider>
       </ThemeProvider>
     </>
@@ -163,9 +172,8 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   // Note, `req` will be undefined if this is the client-side rendering
   // of a 500 page ("Ooops! It looks like something went wrong.")
   if (req?.context?.languages) {
-    for (const [langCode, langObj] of Object.entries(
-      req.context.languages as Record<string, LanguageItem>,
-    )) {
+    const languageEntries = Object.entries(req.context.languages as Record<string, LanguageItem>)
+    for (const [langCode, langObj] of languageEntries) {
       // Only pick out the keys we actually need
       languagesContext.languages[langCode] = {
         name: langObj.name,

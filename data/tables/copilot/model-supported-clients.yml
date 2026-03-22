@@ -21,7 +21,7 @@
   xcode: true
   jetbrains: true
 
-- name: Claude Opus 4.1
+- name: Claude Opus 4.5
   dotcom: true
   vscode: true
   vs: true
@@ -29,8 +29,16 @@
   xcode: true
   jetbrains: true
 
-- name: Claude Opus 4.5
+- name: Claude Opus 4.6
   dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: Claude Opus 4.6 (fast mode) (preview)
+  dotcom: false
   vscode: true
   vs: false
   eclipse: false
@@ -53,7 +61,23 @@
   xcode: true
   jetbrains: true
 
+- name: Claude Sonnet 4.6
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: false
+  xcode: false
+  jetbrains: false
+
 - name: Gemini 2.5 Pro
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: Gemini 3 Flash
   dotcom: true
   vscode: true
   vs: true
@@ -64,20 +88,20 @@
 - name: Gemini 3 Pro
   dotcom: true
   vscode: true
-  vs: false
-  eclipse: false
-  xcode: false
-  jetbrains: false
-
-- name: GPT-4.1
-  dotcom: true
-  vscode: true
   vs: true
   eclipse: true
   xcode: true
   jetbrains: true
 
-- name: GPT-5
+- name: Gemini 3.1 Pro
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: false
+  xcode: false
+  jetbrains: false
+
+- name: GPT-4.1
   dotcom: true
   vscode: true
   vs: true
@@ -93,18 +117,10 @@
   xcode: true
   jetbrains: true
 
-- name: GPT-5-Codex
-  dotcom: false
-  vscode: true
-  vs: false
-  eclipse: false
-  xcode: false
-  jetbrains: false
-
 - name: GPT-5.1
   dotcom: true
   vscode: true
-  vs: false
+  vs: true
   eclipse: true
   xcode: true
   jetbrains: true
@@ -125,6 +141,46 @@
   xcode: true
   jetbrains: true
 
+- name: GPT-5.1-Codex-Max
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: GPT-5.2
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: GPT-5.2-Codex
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: GPT-5.3-Codex
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
+- name: GPT-5.4
+  dotcom: true
+  vscode: true
+  vs: true
+  eclipse: true
+  xcode: true
+  jetbrains: true
+
 - name: Grok Code Fast 1
   dotcom: true
   vscode: true
@@ -134,6 +190,14 @@
   jetbrains: true
 
 - name: Raptor mini
+  dotcom: false
+  vscode: true
+  vs: false
+  eclipse: false
+  xcode: false
+  jetbrains: false
+
+- name: Goldeneye
   dotcom: false
   vscode: true
   vs: false

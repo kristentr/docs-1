@@ -259,7 +259,9 @@ includeGuides:
   - `id` (required): Unique identifier for the journey. The id only needs to be unique for journeys within a single journey landing page.
   - `title` (required): Display title for the journey (supports Liquid variables)
   - `description` (optional): Description of the journey (supports Liquid variables)
-  - `guides` (required): Array of article paths that make up this journey
+  - `guides` (required): Array of guide objects that make up this journey. Each guide object has:
+    - `href` (required): Path to the article
+    - `alternativeNextStep` (optional): Custom text to guide users to alternative paths in the journey. Supports Liquid variables and `[AUTOTITLE]`.
 - Only applicable when used with `layout: journey-landing`.
 - Optional.
 
@@ -271,26 +273,22 @@ journeyTracks:
     title: 'Getting started with {% data variables.product.prodname_actions %}'
     description: 'Learn the basics of GitHub Actions.'
     guides:
-      - '/actions/quickstart'
-      - '/actions/learn-github-actions'
-      - '/actions/using-workflows'
+      - href: '/actions/quickstart'
+      - href: '/actions/learn-github-actions'
+        alternativeNextStep: 'Want to skip ahead? See [AUTOTITLE](/actions/using-workflows).'
+      - href: '/actions/using-workflows'
   - id: 'advanced'
     title: 'Advanced {% data variables.product.prodname_actions %}'
     description: 'Dive deeper into advanced features.'
     guides:
-      - '/actions/using-workflows/workflow-syntax-for-github-actions'
-      - '/actions/deployment/deploying-with-github-actions'
+      - href: '/actions/using-workflows/workflow-syntax-for-github-actions'
+      - href: '/actions/deployment/deploying-with-github-actions'
 ```
 
 ### `type`
 - Purpose: Indicate the type of article.
 - Type: `String`, one of the `overview`, `quick_start`, `tutorial`, `how_to`, `reference`.
 - Optional.
-
-### `topics`
-- Purpose: Indicate the topics covered by the article. Refer to the content models for more details about adding topics. A full list of existing topics is located in the [allowed topics file](/data/allowed-topics.ts). If topics in article frontmatter and the allow-topics list become out of sync, the [topics CI test](/src/search/tests/topics.ts) will fail.
-- Type: Array of `String`s
-- Optional: Topics are preferred for each article, but, there may be cases where existing articles don't yet have topics, or adding a topic to a new article may not add value.
 
 ### `communityRedirect`
 - Purpose: Set a custom link and link name for `Ask the GitHub community` link in the footer.

@@ -63,6 +63,7 @@ redirect_from:
   - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-organizations
   - /insights/installing-and-configuring-github-insights/managing-data-in-github-insights/managing-repositories
   - /admin/configuration/configuring-your-enterprise/configuring-data-encryption-for-your-enterprise
+  - /admin/guides
 introLinks:
   overview: '{% ifversion ghes %}/admin/overview/about-github-enterprise-server{% elsif ghec %}/admin/overview/about-github-enterprise-cloud{% endif %}'
   releases: '{% ifversion ghes %}/admin/all-releases{% endif %}'
@@ -79,7 +80,7 @@ featuredLinks:
   guideCards:
     - '{% ifversion ghes %}/admin/managing-github-actions-for-your-enterprise/getting-started-with-github-actions-for-your-enterprise/getting-started-with-github-actions-for-github-enterprise-server{% endif %}'
     - '{% ifversion ghes %}/admin/configuring-packages/getting-started-with-github-packages-for-your-enterprise{% endif %}'
-    - '{% ifversion ghes %}/admin/managing-code-security/managing-github-advanced-security-for-your-enterprise{% endif %}'
+    - '{% ifversion ghes < 3.15 %}/admin/managing-code-security/managing-github-advanced-security-for-your-enterprise{% endif %}'
     - '{% ifversion ghec %}/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise{% endif %}'
     - '{% ifversion ghec %}/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-code-security-and-analysis-for-your-enterprise{% endif %}'
     - '{% ifversion ghec %}/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise{% endif %}'
@@ -116,7 +117,6 @@ children:
   - /managing-github-actions-for-your-enterprise
   - /configuring-packages
   - /managing-code-security
-  - /guides
   - /release-notes
   - /all-releases
 ---

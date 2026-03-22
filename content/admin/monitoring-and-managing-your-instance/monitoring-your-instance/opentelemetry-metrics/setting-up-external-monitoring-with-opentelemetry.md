@@ -3,17 +3,15 @@ title: Setting up external monitoring with OpenTelemetry
 intro: 'Configure external monitoring systems to collect and analyze OpenTelemetry metrics from your {% data variables.product.prodname_ghe_server %} instance.'
 versions:
   feature: ghes-opentelemetry
-topics:
-  - Enterprise
-  - Fundamentals
-  - Infrastructure
-  - Monitoring
-  - Performance
 type: how_to
 shortTitle: External monitoring OpenTelemetry
 ---
 
+{% ifversion ghes = 3.18 %}
+
 {% data reusables.enterprise.opentelemetry-preview %}
+
+{% endif %}
 
 ## External monitoring approaches
 
@@ -126,7 +124,7 @@ scrape_configs:
     scheme: https
     tls_config:
       # Set `true` only when testing with self-signed certificates
-      insecure_skip_verify: false  
+      insecure_skip_verify: false
 ```
 
 #### Other monitoring tools

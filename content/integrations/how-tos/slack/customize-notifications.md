@@ -6,9 +6,9 @@ versions:
   fpt: '*'
   ghes: '*'
   ghec: '*'
-topics:
-  - Integration
 contentType: reference
+category:
+  - Use integrations
 ---
 
 You can customize your notifications by subscribing to activity that is relevant to your Slack channel, and unsubscribing from activity that is less helpful to your project.

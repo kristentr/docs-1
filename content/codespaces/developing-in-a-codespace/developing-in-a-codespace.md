@@ -9,20 +9,10 @@ versions:
   fpt: '*'
   ghec: '*'
 type: how_to
-topics:
-  - Codespaces
-  - Fundamentals
-  - Developer
 shortTitle: Develop in a codespace
 ---
 
 ## About development with {% data variables.product.prodname_github_codespaces %}
-
-{% ifversion ghec %}
-
-{% data reusables.codespaces.data-residency-availability %}
-
-{% endif %}
 
 You can develop code in a codespace using your choice of tool:
 

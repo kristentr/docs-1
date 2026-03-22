@@ -15,11 +15,6 @@ versions:
   ghes: '*'
   ghec: '*'
 type: tutorial
-topics:
-  - Packaging
-  - Publishing
-  - Node
-  - JavaScript
 ---
 
 ## Introduction
@@ -114,6 +109,7 @@ If you do provide the `repository` key in your `package.json` file, then the rep
     "type": "git",
     "url": "https://github.com/octocat/my-other-repo.git"
   },
+}
 ```
 
 ### Authenticating to the destination repository

@@ -10,8 +10,6 @@ versions:
   fpt: '*'
   ghes: '*'
   ghec: '*'
-topics:
-  - API
 shortTitle: Pagination
 ---
 
@@ -127,7 +125,7 @@ const octokit = new Octokit({ {% ifversion ghes %}
 {% endif %}});
 
 async function getPaginatedData(url) {
-  const nextPattern = /(?<=<)([\S]*)(?=>; rel="Next")/i;
+  const nextPattern = /(?<=<)([\S]*)(?=>; rel="next")/i;
   let pagesRemaining = true;
   let data = [];
 

@@ -5,8 +5,6 @@ allowTitleToDifferFromFilename: true
 intro: 'Learn how to use the Model Context Protocol (MCP) to extend the capabilities of {% data variables.copilot.copilot_coding_agent %}.'
 versions:
   feature: copilot
-topics:
-  - Copilot
 redirect_from:
   - /copilot/customizing-copilot/using-model-context-protocol/extending-copilot-coding-agent-with-mcp
   - /copilot/customizing-copilot/extending-copilot-coding-agent-with-mcp
@@ -50,7 +48,7 @@ Repository administrators can configure MCP servers by following these steps:
 
    Your configuration will be validated to ensure proper syntax.
 
-1. If your MCP server requires a key or secret, add a secret to your {% data variables.product.prodname_copilot_short %} environment. Only secrets with names prefixed with `COPILOT_MCP_` will be available to your MCP configuration. See [Setting up a {% data variables.product.prodname_copilot_short %} environment for {% data variables.copilot.copilot_coding_agent %}](#setting-up-a-copilot-environment-for-copilot-coding-agent).
+1. If your MCP server requires a variable, key, or secret, add a variable or secret to your {% data variables.product.prodname_copilot_short %} environment. Only variables and secrets with names prefixed with `COPILOT_MCP_` will be available to your MCP configuration. See [Setting up a {% data variables.product.prodname_copilot_short %} environment for {% data variables.copilot.copilot_coding_agent %}](#setting-up-a-copilot-environment-for-copilot-coding-agent).
 
 ## Writing a JSON configuration for MCP servers
 
@@ -78,20 +76,23 @@ The configuration object can contain the following keys:
 
 **Required keys for local and remote MCP servers**
 * `tools` (`string[]`): The tools from the MCP server to enable. You may be able to find a list of tools in the server's documentation, or in its code. We strongly recommend that you allowlist specific read-only tools, since the agent will be able to use these tools autonomously and will not ask you for approval first. You can also enable all tools by including `*` in the array.
-* `type` (`string`): {% data variables.copilot.copilot_coding_agent %} accepts `"local"`, `"http"`, or `"sse"`.
+* `type` (`string`): {% data variables.copilot.copilot_coding_agent %} accepts `"local"`, `"stdio"`, `"http"`, or `"sse"`.
 
 **Local MCP specific keys**
 * `command` (`string`): Required. The command to run to start the MCP server.
 * `args` (`string[]`): Required. The arguments to pass to the `command`.
 * `env` (`object`): Optional. The environment variables to pass to the server. This object should map the name of the environment variable that should be exposed to your MCP server to either of the following:
-  * The name of a {% data variables.product.prodname_actions %} secret you have configured, beginning with `COPILOT_MCP_`.
-  * A string value.
+  * The name of a secret you have configured in your {% data variables.product.prodname_copilot_short %} environment, beginning with `COPILOT_MCP_`.
+  * The name of a variable you have configured in your {% data variables.product.prodname_copilot_short %} environment, beginning with `COPILOT_MCP_`.
 
 **Remote MCP specific keys**
 * `url` (`string`): Required. The MCP server's URL.
 * `headers` (`object`): Optional. The headers to attach to requests to the server. This object should map the name of header keys to either of the following:
-  * The name of a {% data variables.product.prodname_actions %} secret you have configured, beginning with `COPILOT_MCP_` preceded by a `$`
-  * A string value
+  * The name of a secret you have configured in your {% data variables.product.prodname_copilot_short %} environment, beginning with `COPILOT_MCP_` preceded by a `$`.
+  * The name of a variable you have configured in your {% data variables.product.prodname_copilot_short %} environment, beginning with `COPILOT_MCP_` preceded by a `$`.
+  * A string value.
+
+Note that all `string` and `string[]` fields besides `tools` & `type` support substitution with a variable or secret you have configured in your {% data variables.product.prodname_copilot_short %} environment, beginning with `COPILOT_MCP_` preceded by a `$`.
 
 ## Example configurations
 
@@ -111,10 +112,12 @@ The [Sentry MCP server](https://github.com/getsentry/sentry-mcp) gives {% data v
       "args": ["@sentry/mcp-server@latest", "--host=$SENTRY_HOST"],
       "tools": ["get_issue_details", "get_issue_summary"],
       "env": {
-        // We can specify an environment variable value as a string...
-        "SENTRY_HOST": "https://contoso.sentry.io",
-        // or refer to a {% data variables.product.prodname_actions %} secret with a name starting with
-        // `COPILOT_MCP_`
+        // We can specify an environment variable value as
+        // a variable in your {% data variables.product.prodname_copilot_short %} environment
+        // where `COPILOT_MCP_SENTRY_HOST` = "https://contoso.sentry.io"...
+        "SENTRY_HOST": "COPILOT_MCP_SENTRY_HOST",
+        // or refer to a secret with a name starting with
+        // `COPILOT_MCP_`.
         "SENTRY_ACCESS_TOKEN": "COPILOT_MCP_SENTRY_ACCESS_TOKEN"
       }
     }
@@ -156,7 +159,7 @@ The [Notion MCP server](https://github.com/makenotion/notion-mcp-server) gives {
 
 ### Example: Azure
 
-The [Azure MCP Server](https://github.com/Azure/azure-mcp) allows {% data variables.product.prodname_copilot_short %} to understand your Azure-specific files and Azure resources within your subscription when making code changes.
+The [Microsoft MCP repository](https://github.com/microsoft/mcp) includes the Azure MCP server, which allows {% data variables.product.prodname_copilot_short %} to understand your Azure-specific files and Azure resources within your subscription when making code changes.
 
 To automatically configure your repository with a `copilot-setup-steps.yml` file to authenticate with Azure, plus secrets for authentication, clone the repository locally then run the [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/?ref_product=copilot&ref_type=engagement&ref_style=button)'s `azd coding-agent config` command in the root of the repository.
 
@@ -303,20 +306,26 @@ If you want to allow {% data variables.product.prodname_copilot_short %} to acce
 1. In the "Code & automation" section of the sidebar, click **{% data variables.product.prodname_copilot_short %}** then **{% data variables.copilot.copilot_coding_agent_short_cap_c %}**.
 1. Add your configuration in the **MCP configuration** section. For example, you can add the following:
 
-  ```javascript copy
+   ```javascript copy
     // If you copy and paste this example, you will need to remove the comments prefixed with `//`, which are not valid JSON.
     {
       "mcpServers": {
         "github-mcp-server": {
           "type": "http",
           // Remove "/readonly" to enable wider access to all tools.
-          // Then, use the "tools" key to specify the subset of tools you'd like to include.
+          // Then, use the "X-MCP-Toolsets" header to specify which toolsets you'd like to include.
+          // Use the "tools" field to select individual tools from the toolsets.
           "url": "https://api.githubcopilot.com/mcp/readonly",
-          "tools": ["*"]
+          "tools": ["*"],
+          "headers": {
+            "X-MCP-Toolsets": "repos,issues,users,pull_requests,code_security,secret_protection,actions,web_search"
+          }
         }
       }
     }
    ```
+
+   For more information on toolsets, refer to the [README](https://github.com/github/github-mcp-server?tab=readme-ov-file#available-toolsets) in the {% data variables.product.github %} Remote MCP Server documentation.
 
 1. Click **Save**.
 {% data reusables.actions.sidebar-environment %}
@@ -328,6 +337,7 @@ For information on using the {% data variables.product.github %} MCP server in o
 
 ## Next steps
 
+* [AUTOTITLE](/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers)
 * [AUTOTITLE](/copilot/how-tos/use-copilot-agents/coding-agent/create-custom-agents)
 * [AUTOTITLE](/copilot/customizing-copilot/customizing-the-development-environment-for-copilot-coding-agent)
 * [AUTOTITLE](/copilot/customizing-copilot/extending-copilot-chat-with-mcp)

@@ -42,9 +42,6 @@ Use the labels in the table below to run your workflows on the corresponding mac
 
 {% data reusables.actions.larger-runners-table %}
 
-> [!NOTE]
-> For macOS {% data variables.actions.hosted_runner %}s, the `-latest` runner label uses the macOS 12 runner image. For macOS Xlarge, the `-latest` runner label uses the macOS 13 runner image
-
 {% endmac %}
 
 {% ifversion repository-actions-runners %}
@@ -85,7 +82,7 @@ Use the labels in the table below to run your workflows on the corresponding mac
 
 {% data reusables.actions.runner-labels-implicit %}
 
-In this example, the `runs-on` key sends the job to any available runner that has been assigned the `ubuntu-20.04-16core` label:
+In this example, the `runs-on` key sends the job to any available runner that has been assigned the `ubuntu-24.04-16core` label:
 
 ```yaml
 name: learn-github-actions
@@ -93,7 +90,7 @@ on: [push]
 jobs:
   check-bats-version:
     runs-on:
-      labels: ubuntu-20.04-16core
+      labels: ubuntu-24.04-16core
     steps:
       - uses: {% data reusables.actions.action-checkout %}
       - uses: {% data reusables.actions.action-setup-node %}
@@ -148,7 +145,7 @@ name: learn-github-actions-testing
 on: [push]
 jobs:
   build:
-    runs-on: macos-13-xlarge
+    runs-on: macos-26-xlarge
     steps:
       - uses: {% data reusables.actions.action-checkout %}
       - name: Build

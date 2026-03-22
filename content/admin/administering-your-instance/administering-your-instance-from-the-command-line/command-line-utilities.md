@@ -12,9 +12,6 @@ redirect_from:
 versions:
   ghes: '*'
 type: reference
-topics:
-  - Enterprise
-  - SSH
 ---
 
 You can execute these commands from anywhere on the VM after signing in as an SSH admin user. For more information, see [AUTOTITLE](/admin/configuration/configuring-your-enterprise/accessing-the-administrative-shell-ssh).
@@ -225,7 +222,7 @@ To check SSH ciphers:
 ghe-crypto check ssh-ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com
 ```
 
-For more information about configuring cipher suites and cryptographic algorithms, see [AUTOTITLE](/admin/configuring-settings/hardening-security-for-your-enterprise/configuring-tls#configuring-cipher-suites-and-cryptographic-algorithms).
+For more information about configuring cipher suites and cryptographic algorithms, see [AUTOTITLE](/admin/configuring-settings/hardening-security-for-your-enterprise/configuring-tls-and-ssh-ciphers).
 
 {% endif %}
 

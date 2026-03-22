@@ -5,8 +5,6 @@ versions:
   fpt: '*'
   ghec: '*'
   ghes: '*'
-topics:
-  - Organizations
 shortTitle: Customize organization profile
 ---
 
@@ -45,6 +43,8 @@ If you manage multiple organizations with an enterprise account, you can help me
 {% endif %}
 
 ## Adding a public organization profile README
+
+>[!NOTE] Public organization profiles are not available with {% data variables.product.prodname_emus %}.
 
 The content of public `README.md` will appear on your organization's public profile.
 

@@ -38,12 +38,6 @@ redirect_from:
   - /billing/using-the-new-billing-platform/about-git-large-file-storage
   - /billing/using-the-new-billing-platform/about-billing-for-git-large-file-storage
   - /billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/about-billing-for-git-large-file-storage
-topics:
-  - Billing
-  - LFS
-  - Enterprise
-  - Team
-  - Upgrades
 shortTitle: Git LFS
 product: '{% data reusables.billing.enhanced-billing-platform-product %}'
 contentType: concepts
@@ -51,7 +45,10 @@ contentType: concepts
 
 ## How use of {% data variables.large_files.product_name_short %} is measured
 
-Each {% data variables.product.github %} account receives a quota of free bandwidth and storage for {% data variables.large_files.product_name_long %} ({% data variables.large_files.product_name_short %}). Any usage beyond the included amounts is billed to your account. Bandwidth resets every month, while storage usage does not.
+Each {% data variables.product.github %} account receives a quota of free bandwidth and storage for {% data variables.large_files.product_name_long %} ({% data variables.large_files.product_name_short %}). Any usage beyond the included amounts is billed to your account. 
+
+* **Bandwidth:** Your free quota resets at the start of each billing cycle. 
+* **Storage:** Charges accrue continuously throughout the month based on hourly usage. Your accrued storage total resets to zero at the begining of each billing cycle.
 
 Working in a public or private repository with {% data variables.large_files.product_name_short %}:
 
@@ -86,7 +83,7 @@ The following amounts of storage and bandwidth for downloads are included in you
 | {% data variables.product.prodname_pro %} | {% data variables.large_files.included_bandwidth_free_pro %} | {% data variables.large_files.included_storage_free_pro %} |
 | {% data variables.product.prodname_free_team %} for organizations | {% data variables.large_files.included_bandwidth_free_pro %} | {% data variables.large_files.included_storage_free_pro %} |
 | {% data variables.product.prodname_team %} | {% data variables.large_files.included_bandwidth_team_enterprise %} | {% data variables.large_files.included_storage_team_enterprise %} |
-| {% data variables.product.prodname_ghe_cloud %} | {% data variables.large_files.included_bandwidth_team_enterprise %} | {% data variables.large_files.included_storage_team_enterprise %} |
+|{% data variables.product.prodname_ghe_cloud %} | {% data variables.large_files.included_bandwidth_team_enterprise %} | {% data variables.large_files.included_storage_team_enterprise %} |
 
 ## Using more than your included quota
 
@@ -122,7 +119,7 @@ In this example, you would pay for 1.5 GiB of additional storage for the month o
 
 {% data reusables.billing.default-over-quota-behavior %}
 
-{% data reusables.billing.migrated-budgets %}
+You can also receive email notifications when your included {% data variables.large_files.product_name_short %} usage reaches 90% and 100% during a billing period. For more information, see [AUTOTITLE](/billing/concepts/budgets-and-alerts#included-usage-alerts).
 
 ## Further reading
 

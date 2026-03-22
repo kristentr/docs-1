@@ -13,9 +13,6 @@ redirect_from:
   - /actions/use-cases-and-examples/deploying/deploying-with-github-actions
   - /actions/concepts/use-cases/deploying-with-github-actions
   - /actions/tutorials/deploying-with-github-actions
-topics:
-  - CD
-  - Deployment
 ---
 
 ## Prerequisites
@@ -127,6 +124,12 @@ For guidance on writing deployment-specific steps, see [Finding deployment examp
 ## Viewing deployment history
 
 When a {% data variables.product.prodname_actions %} workflow deploys to an environment, the environment is displayed on the main page of the repository. For more information about viewing deployments to environments, see [AUTOTITLE](/actions/deployment/managing-your-deployments/viewing-deployment-history).
+
+{% ifversion virtual-registry %}
+
+Your organization can collect deployment records for all your builds in a single place by uploading data to the {% data variables.product.virtual_registry %}. See [AUTOTITLE](/code-security/concepts/supply-chain-security/linked-artifacts).
+
+{% endif %}
 
 ## Monitoring workflow runs
 

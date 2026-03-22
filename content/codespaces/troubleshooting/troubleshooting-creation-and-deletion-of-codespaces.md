@@ -5,16 +5,8 @@ versions:
   fpt: '*'
   ghec: '*'
 type: reference
-topics:
-  - Codespaces
 shortTitle: Creation and deletion
 ---
-
-{% ifversion ghec %}
-
-{% data reusables.codespaces.data-residency-availability %}
-
-{% endif %}
 
 ## Creating codespaces
 

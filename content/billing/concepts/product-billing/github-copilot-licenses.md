@@ -3,9 +3,6 @@ title: GitHub Copilot licenses
 intro: 'Learn how licenses for {% data variables.product.prodname_copilot_short %} work, including usage measurement and managing your budget.'
 versions:
   feature: copilot
-topics:
-  - Billing
-  - Copilot
 redirect_from:
   - /billing/concepts/product-billing/github-copilot
   - /billing/managing-billing-for-github-copilot/about-billing-for-github-copilot
@@ -47,6 +44,7 @@ There are several ways to use {% data variables.product.prodname_copilot_short %
 * You must choose a monthly or yearly billing cycle and provide a payment method.
 * If you do not cancel before the end of the trial, it automatically converts to a paid plan.
 * You can cancel any time during the 30 days. If you cancel, you will not be charged and will keep access until the trial ends.
+* Free trials are limited to three per payment method. Additional trials will continue as paid subscriptions.
 
 ### Educational and open source benefits
 

@@ -7,17 +7,9 @@ versions:
   fpt: '*'
   ghec: '*'
 type: overview
-topics:
-  - Codespaces
 redirect_from:
   - /codespaces/overview
 ---
-
-{% ifversion ghec %}
-
-{% data reusables.codespaces.data-residency-availability %}
-
-{% endif %}
 
 ## Introduction
 
